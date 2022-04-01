@@ -1,5 +1,5 @@
 <template>
-  <li class="list-group-item list-group-item-action">
+  <li>
     <router-link to="/details">{{ details.name }}</router-link>
   </li>
 </template>
