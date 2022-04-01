@@ -7,15 +7,15 @@
       <div class="card-body">
         <h5 class="card-title fw-bold">book name</h5>
         <p class="card-text">
-          {{ book.book.name }}
+          {{ books.name }}
         </p>
-        <h5 class="card-title fw-bold">+book email</h5>
+        <h5 class="card-title fw-bold">book email</h5>
         <p class="card-text">
-          {{ book.book.isbn }}
+          {{ books.isbn }}
         </p>
         <h5 class="card-title fw-bold">book authors</h5>
         <p class="card-text">
-          {{ books.books.authors }}
+          {{ books.authors }}
         </p>
         <h5 class="card-title fw-bold">country</h5>
         <p class="card-text">
@@ -32,8 +32,21 @@
 </template>
 <script>
 import book from "@/book";
-
+import axios from 'axios'
 export default {
-  
-}
+   name: "Details",
+  data: () => ({
+    books: {},
+  }),
+  created() {
+    axios
+      .get("https://www.anapioficeandfire.com/api/books")
+      .then((response) => {
+        this.books = response.data.find(
+          (books) => books.name === book.currentBook
+        );
+      });
+  },
+};
+
 </script>

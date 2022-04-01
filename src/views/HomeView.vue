@@ -1,18 +1,51 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+
+  <ul class="list-group list-group-flush">
+    
+    
+    <li v-for="book in books"
+    :key="book.name"
+    :details="book"
+    @click="setBook(book.name)"
+    >
+    <router-link to="/details">{{book.name}}</router-link>
+    </li>
+    
+   
+    
+  </ul>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import axios from "axios";
+import Books from "@/components/Books.vue";
+import book from "@/book";
 
 export default {
-  name: 'HomeView',
+  name: "books",
+  data() {
+    return {
+    books: []
+    };
+  },
+  
+ async created() {
+      const response = await fetch("https://www.anapioficeandfire.com/api/books");
+      const data = await response.json();
+      this.books = data;
+      },
+      
+
   components: {
-    HelloWorld
-  }
-}
+    Books,
+    
+  },
+  methods: {
+    setBook(booka) {
+      book.currentBook = booka;
+      console.log(booka);
+     
+    },
+  },
+};
 </script>
